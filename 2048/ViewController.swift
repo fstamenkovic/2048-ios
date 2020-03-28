@@ -15,6 +15,23 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+   
+    @IBAction func swipeRight(_ sender: Any) {
+        print("swipe right")
+    }
+    
+    @IBAction func swipeLeft(_ sender: Any) {
+        print("swipeLeft")
+    }
+    
+    @IBAction func swipeDown(_ sender: Any) {
+        print("swipeDown")
+    }
+    
+    @IBAction func swipeUp(_ sender: Any) {
+        print("swipe Up")
+    }
+    
+    
 }
 

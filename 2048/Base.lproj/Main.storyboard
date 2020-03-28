@@ -42,14 +42,41 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="95f-wm-0f2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="V7E-w3-A4e"/>
                             <constraint firstItem="95f-wm-0f2" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nrK-gE-HJH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Hj7-bK-Ez0" appends="YES" id="KRg-4k-kOW"/>
+                            <outletCollection property="gestureRecognizers" destination="Rwd-V2-CeD" appends="YES" id="MOq-k3-Ms2"/>
+                            <outletCollection property="gestureRecognizers" destination="IQ0-la-GlY" appends="YES" id="gLL-wO-GK2"/>
+                            <outletCollection property="gestureRecognizers" destination="kX4-BQ-VG7" appends="YES" id="YvA-2l-Tw3"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="Hj7-bK-Ez0" userLabel="Swipe Gesture Recognizer (right)">
+                    <connections>
+                        <action selector="swipeRight:" destination="BYZ-38-t0r" id="CAZ-gL-Rqi"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="Rwd-V2-CeD" userLabel="Swipe Gesture Recognizer (left)">
+                    <connections>
+                        <action selector="swipeLeft:" destination="BYZ-38-t0r" id="Jnr-cM-sF9"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="down" id="IQ0-la-GlY" userLabel="Swipe Gesture Recognizer (down)">
+                    <connections>
+                        <action selector="swipeDown:" destination="BYZ-38-t0r" id="2R6-mt-3vf"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="kX4-BQ-VG7" userLabel="Swipe Gesture Recognizer (up)">
+                    <connections>
+                        <action selector="swipeUp:" destination="BYZ-38-t0r" id="5VT-T9-q5p"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="139" y="102"/>
         </scene>
