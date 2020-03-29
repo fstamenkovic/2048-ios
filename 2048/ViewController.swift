@@ -30,6 +30,18 @@ class ViewController: UIViewController {
     
     var fields = [[UILabel]]()
     var current_values = Array(repeating: [0, 0, 0, 0], count: 4)
+    let label_colors = [0: UIColor.lightGray,
+                        2: UIColor.gray,
+                        4: UIColor.darkGray,
+                        8: UIColor.green,
+                        16: UIColor.blue,
+                        32: UIColor.orange,
+                        64: UIColor.yellow,
+                        128: UIColor.systemPink,
+                        256: UIColor.red,
+                        512: UIColor.brown,
+                        1024: UIColor.green,
+                        2048: UIColor.systemPink]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,14 +125,75 @@ class ViewController: UIViewController {
                 } else {
                     fields[i][j].text = String(current_values[i][j])
                 }
+                fields[i][j].backgroundColor = label_colors[current_values[i][j]]
             }
         }
+    }
+    
+    func moveZeroes(_ arr: [Int]) -> [Int] {
+        var new_arr = arr
+        var curr_index = 0
+        var index_ahead = 0
+        while index_ahead < 4 {
+            if arr[index_ahead] != 0 {
+                new_arr[curr_index] = new_arr[index_ahead]
+                curr_index += 1
+            }
+            index_ahead += 1
+        }
+        while curr_index < 4 {
+            new_arr[curr_index] = 0
+            curr_index += 1
+        }
+        
+        return new_arr
+    }
+    
+    func collapseCol(_ arr: [Int]) -> [Int] {
+        
+        var new_col = arr
+        var curr_index = 0
+        
+        while curr_index < 3 {
+            if new_col[curr_index] == new_col[curr_index+1]{
+                new_col[curr_index] *= 2
+                new_col[curr_index+1] = 0
+                curr_index += 1
+            }
+            curr_index += 1
+        }
+        
+        return new_col
     }
 
    
     @IBAction func swipeRight(_ sender: Any) {
         print("swipe right")
         initValues()
+        
+        for i in 0...3 {
+            var new_col = current_values[i]
+            new_col.reverse()
+            new_col = moveZeroes(new_col)
+                
+            print("i: \(i)")
+            print("moved zeros: \(current_values[i])")
+            
+            new_col = collapseCol(new_col)
+            
+            print("collapsed: \(current_values[i])")
+            
+            new_col = moveZeroes(new_col)
+            
+            new_col.reverse()
+            current_values[i] = new_col
+            
+            print("moved zeros: \(current_values[i])")
+        }
+        
+        addNumber()
+        redrawField()
+        
     }
     
     @IBAction func swipeLeft(_ sender: Any) {
@@ -128,54 +201,20 @@ class ViewController: UIViewController {
         initValues()
         //var new_values = Array(repeating: [0, 0, 0, 0], count: 4)
         
-        for i in 0...3{
+        for i in 0...3 {
             // first, move all values as left as possible
-            var curr_index = 0
-            var index_ahead = 0
-            while index_ahead < 4 {
-                if current_values[i][index_ahead] != 0 {
-                    current_values[i][curr_index] = current_values[i][index_ahead]
-                    curr_index += 1
-                }
-                index_ahead += 1
-            }
-            while curr_index < 4 {
-                current_values[i][curr_index] = 0
-                curr_index += 1
-            }
+            var new_col = moveZeroes(current_values[i])
             
             print("i: \(i)")
             print("moved zeros: \(current_values[i])")
             
-            //now, collapse values
-            curr_index = 0
-            
-            while curr_index < 3 {
-                if current_values[i][curr_index] == current_values[i][curr_index+1]{
-                    current_values[i][curr_index] *= 2
-                    current_values[i][curr_index+1] = 0
-                    curr_index += 1
-                }
-                curr_index += 1
-            }
+            new_col = collapseCol(new_col)
             
             print("collapsed: \(current_values[i])")
             
-            index_ahead = 0
-            curr_index = 0
+            new_col = moveZeroes(new_col)
             
-            while index_ahead < 4 {
-                if current_values[i][index_ahead] != 0 {
-                    current_values[i][curr_index] = current_values[i][index_ahead]
-                    curr_index += 1
-                }
-                index_ahead += 1
-            }
-            
-            while curr_index < 4 {
-                current_values[i][curr_index] = 0
-                curr_index += 1
-            }
+            current_values[i] = new_col
             
             print("moved zeros: \(current_values[i])")
         }
