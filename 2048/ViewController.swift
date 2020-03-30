@@ -165,8 +165,19 @@ class ViewController: UIViewController {
         
         return new_col
     }
+    
+    func transpose(_ matrix: [[Int]]) -> [[Int]] {
+        var new_matrix = Array(repeating: [0, 0, 0, 0], count: 4)
+        
+        for i in 0...3 {
+            for j in 0...3 {
+                new_matrix[j][i] = matrix[i][j]
+            }
+        }
+        
+        return new_matrix
+    }
 
-   
     @IBAction func swipeRight(_ sender: Any) {
         print("swipe right")
         initValues()
@@ -226,11 +237,62 @@ class ViewController: UIViewController {
     @IBAction func swipeDown(_ sender: Any) {
         print("swipeDown")
         initValues()
+        
+        var transposed_values = transpose(current_values)
+        
+        for i in 0...3 {
+            // first, move all values as left as possible
+            var new_col = transposed_values[i]
+            new_col.reverse()
+            new_col = moveZeroes(new_col)
+                
+            print("i: \(i)")
+            print("moved zeros: \(transposed_values[i])")
+            
+            new_col = collapseCol(new_col)
+            
+            print("collapsed: \(transposed_values[i])")
+            
+            new_col = moveZeroes(new_col)
+            
+            new_col.reverse()
+            transposed_values[i] = new_col
+            
+            print("moved zeros: \(transposed_values[i])")
+        }
+        
+        current_values = transpose(transposed_values)
+        addNumber()
+        redrawField()
     }
     
     @IBAction func swipeUp(_ sender: Any) {
         print("swipe Up")
         initValues()
+        
+        var transposed_values = transpose(current_values)
+        
+        for i in 0...3 {
+            // first, move all values as left as possible
+            var new_col = moveZeroes(transposed_values[i])
+            
+            print("i: \(i)")
+            print("moved zeros: \(transposed_values[i])")
+            
+            new_col = collapseCol(new_col)
+            
+            print("collapsed: \(transposed_values[i])")
+            
+            new_col = moveZeroes(new_col)
+            
+            transposed_values[i] = new_col
+            
+            print("moved zeros: \(transposed_values[i])")
+        }
+        
+        current_values = transpose(transposed_values)
+        addNumber()
+        redrawField()
     }
     
     
